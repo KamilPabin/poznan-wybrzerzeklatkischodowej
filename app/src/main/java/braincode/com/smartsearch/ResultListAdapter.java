@@ -8,12 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by Little on 2017-03-24.
@@ -62,7 +61,13 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Vi
         holder.Description.setText( item.getDescription());
         holder.Price.setText( item.getPrice());
 
-        
+        Glide
+                .with(mContext)
+                .load(item.getSmallImageURL())
+                .dontTransform()
+                .skipMemoryCache(false)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(holder.Thumbnail);
 
     }
 
