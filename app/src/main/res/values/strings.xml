@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">smartsearch</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="type_your_search">Wpisz</string>
+    <string name="did_you_say">Czy chodziło Ci o:</string>
+    <string name="speech_to_text">Odczytywanie mowy</string>
+    <string name="yes">tak</string>
+    <string name="cancel">Anuluj</string>
 </resources>
