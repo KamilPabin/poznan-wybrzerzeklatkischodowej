@@ -12,9 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import java.util.List;
 
+import braincode.com.smartsearch.Dialog.TextDialog;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,6 +30,9 @@ public class SearchFragment extends Fragment {
     @BindView(R.id.fab)
     FloatingActionButton fab;
 
+    @BindView(R.id.editText)
+    EditText inputEt;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,7 +41,6 @@ public class SearchFragment extends Fragment {
 
         return view;
     }
-
 
     // Create an intent that can start the Speech Recognizer activity
     @OnClick(R.id.fab)
@@ -56,14 +60,20 @@ public class SearchFragment extends Fragment {
         if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
             List<String> results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
-            String spokenText = results.get(0);
 
             for (String s : results) {
                 Log.d("spokenText", s);
             }
-            // Do something with spokenText
-        }
 
+            //best match index: 0
+            TextDialog textDialog = TextDialog.newInstance(results.get(0));
+            textDialog.setTargetFragment(this, 0);
+            textDialog.show(getFragmentManager(), "TAG");
+        }
+    }
+
+    public void onTextToSpeechConfirmation(String bestMatch) {
+        inputEt.setText(bestMatch);
     }
 
     @OnClick(R.id.fragment_layout)
@@ -74,5 +84,4 @@ public class SearchFragment extends Fragment {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
-
 }
