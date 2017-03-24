@@ -2,21 +2,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="braincode.com.smartsearch.SearchFragment">
+    tools:context="braincode.com.smartsearch.SearchFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
     <EditText
+        android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="dfagda"
-        android:hint="@string/type_your_search"/>
+        android:hint="@string/type_your_search"
+        android:text="dfagda" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="48dp"
+        app:fabSize="normal"
         android:clickable="true"
-        android:src="@android:drawable/ic_btn_speak_now"/>
+        android:src="@android:drawable/ic_btn_speak_now"
+        android:layout_gravity="bottom|end"/>
 
 </FrameLayout>
