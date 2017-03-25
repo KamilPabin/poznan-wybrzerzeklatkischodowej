@@ -11,5 +11,6 @@
     <string name="speech_to_text">Odczytywanie mowy</string>
     <string name="yes">tak</string>
     <string name="cancel">Anuluj</string>
+    <string name="search">Szukaj</string>
 
 </resources>

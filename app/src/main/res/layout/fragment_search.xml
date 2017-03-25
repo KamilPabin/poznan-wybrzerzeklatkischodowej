@@ -22,4 +22,11 @@
         android:src="@android:drawable/ic_btn_speak_now"
         android:layout_gravity="bottom|end"/>
 
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search"
+        android:layout_gravity="bottom"/>
+
 </FrameLayout>
