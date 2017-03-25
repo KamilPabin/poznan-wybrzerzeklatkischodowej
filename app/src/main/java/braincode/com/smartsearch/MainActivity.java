@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements SearchFragment.onDataDownloaded {
+public class MainActivity extends AppCompatActivity implements SearchFragment.onDataDownloaded,ResultListAdapter.onDetailsDownloading {
 
     private FragmentManager fragmentManager;
 
@@ -48,5 +48,14 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.on
         if (fragmentInStack == 1) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
+    }
+
+    @Override
+    public void onDetailsDataLoaded(Bundle bundle) {
+        Fragment frag = new DetailFragment();
+        frag.setArguments(bundle);
+        fragmentManager.beginTransaction().replace(R.id.frame_layout,frag,null)
+                .addToBackStack(null)
+                .commit();
     }
 }
