@@ -49,7 +49,7 @@
         android:text="@string/item_description"/>
 
     <View
-        android:background="#555555"
+        android:background="#ffb74d"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_alignParentBottom="true"></View>

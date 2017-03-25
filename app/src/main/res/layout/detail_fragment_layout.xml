@@ -32,24 +32,29 @@
             android:id="@+id/detail_localisation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="miasto: "/>
         <TextView
             android:id="@+id/detail_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
             android:text="Cena: "/>
 
         <TextView
             android:id="@+id/detail_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
             android:text="Ilość: "/>
 
     </LinearLayout>
 
     <View
         android:id="@+id/divider"
-        android:background="#000000"
+        android:background="@color/colorOrangeSoft"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/detail_title"/>

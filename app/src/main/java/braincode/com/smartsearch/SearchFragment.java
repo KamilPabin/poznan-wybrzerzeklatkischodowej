@@ -152,7 +152,7 @@ public class SearchFragment extends Fragment {
         find();
     }
 
-    @OnClick(R.id.fragment_layout)
+//    @OnClick(R.id.fragment_layout)
     public void hideSoftKeyboard() {
         View view = getActivity().getCurrentFocus();
         if (view != null) {
@@ -193,7 +193,7 @@ public class SearchFragment extends Fragment {
         Log.d("phrase", requestParser.query.phrase);
         options.put("phrase", requestParser.query.phrase);
         options.put("country.code", "PL");
-        hideSoftKeyboard();
         getItem.getOffers(options);
+        hideSoftKeyboard();
     }
 }
