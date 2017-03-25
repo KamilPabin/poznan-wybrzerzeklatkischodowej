@@ -26,6 +26,27 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.on
         frag.setArguments(bundle);
         fragmentManager.beginTransaction()
                 .replace(R.id.frame_layout,frag,null)
+                .addToBackStack(null)
                 .commit();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        int fragmentInStack = fragmentManager.getBackStackEntryCount();
+
+        if (fragmentInStack > 0){
+            fragmentManager.popBackStack();
+        }
+        if (fragmentInStack == 1) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
     }
 }

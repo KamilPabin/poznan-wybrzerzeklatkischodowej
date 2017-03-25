@@ -8,22 +8,24 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 
+import java.util.ArrayList;
+
 import braincode.com.smartsearch.R;
 import braincode.com.smartsearch.SearchFragment;
 
 /**
- * Created by kkoza on 24.03.2017.
+ * Created by kkoza on 25.03.2017.
  */
 
-public class TextDialog extends AppCompatDialogFragment {
+public class ListDialog extends AppCompatDialogFragment {
 
     private static final String BEST_MATCH_KEY = "best_match";
 
-    public static TextDialog newInstance(String bestMatch) {
+    public static ListDialog newInstance(ArrayList<String> bestMatches) {
         Bundle args = new Bundle();
-        args.putString(BEST_MATCH_KEY, bestMatch);
+        args.putStringArrayList(BEST_MATCH_KEY, bestMatches);
 
-        TextDialog fragment = new TextDialog();
+        ListDialog fragment = new ListDialog();
         fragment.setArguments(args);
 
         return fragment;
@@ -37,21 +39,25 @@ public class TextDialog extends AppCompatDialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-        final String bestMatch = (String) getArguments().get(BEST_MATCH_KEY);
+        final ArrayList<String> list = (ArrayList<String>) getArguments().get(BEST_MATCH_KEY);
+        CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
 
         builder .setTitle(R.string.speech_to_text)
-                .setMessage(r.getString(R.string.did_you_say) + "\n" +
-                bestMatch)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(cs, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ((SearchFragment) getTargetFragment()).onTextToSpeechConfirmation(bestMatch);
+                        ((SearchFragment) getTargetFragment()).onTextToSpeechConfirmation(list.get(which));
+                    }
+                })
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        ((SearchFragment) getTargetFragment()).buildListFragment();
+                    public void onClick(DialogInterface dialog, int which) {
+                        ((SearchFragment) getTargetFragment()).onTextToSpeechConfirmation("");
                     }
                 });
 

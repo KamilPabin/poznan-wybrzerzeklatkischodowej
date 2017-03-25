@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -60,17 +59,19 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Vi
 
         Item item = itemList.get(position);
         Prices.BuyNow buyNow = item.getPrices().getBuyNow();
+        Prices.WithDelivery withDelivery = item.getPrices().getWithDelivery();
 
         holder.Title.setText(item.getName());
         holder.Description.setText("");
-        holder.Price.setText(String.valueOf(buyNow.getAmount()));
-
+        if (buyNow != null) {
+            holder.Price.setText(String.valueOf(buyNow.getAmount()));
+        } else if (withDelivery != null) {
+            holder.Price.setText(String.valueOf(withDelivery.getAmount()));
+        }
         Glide
                 .with(mContext)
                 .load(item.getImages().get(0).getUrl())
                 .dontTransform()
-                .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(holder.Thumbnail);
 
     }

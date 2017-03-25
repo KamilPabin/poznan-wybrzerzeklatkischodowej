@@ -16,9 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import braincode.com.smartsearch.Dialog.ListDialog;
 import braincode.com.smartsearch.Dialog.TextDialog;
 import braincode.com.smartsearch.Model.CategoriesList;
 import braincode.com.smartsearch.Model.Category;
@@ -54,6 +56,8 @@ public class SearchFragment extends Fragment {
     private GetItem getItem;
 
     private MainActivity mContext;
+
+    private List<String> results;
 
     @Override
     public void onAttach(Context context) {
@@ -125,11 +129,11 @@ public class SearchFragment extends Fragment {
     //Callback from intent. Get text from intent content
     @Override
     public void onActivityResult(int requestCode, int resultCode,
-                                    Intent data) {
+                                 Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
-            List<String> results = data.getStringArrayListExtra(
+            results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
 
             for (String s : results) {
@@ -170,4 +174,12 @@ public class SearchFragment extends Fragment {
 
         getItem.getOffers(options);
     }
+
+    public void buildListFragment() {
+        ListDialog listDialog = ListDialog.newInstance((ArrayList<String>) results);
+        listDialog.setTargetFragment(this, 0);
+        listDialog.show(getFragmentManager(), "TAG");
+
+    }
+
 }
