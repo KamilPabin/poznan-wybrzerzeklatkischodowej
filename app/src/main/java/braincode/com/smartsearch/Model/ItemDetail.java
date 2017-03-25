@@ -31,4 +31,24 @@ public class ItemDetail implements Serializable {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+    public List<Gallery> getGallery() {
+        return gallery;
+    }
+
+    public List<Attribute> getAttributes() {
+        return attributes;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public Gallery getMainImage() {
+        return mainImage;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

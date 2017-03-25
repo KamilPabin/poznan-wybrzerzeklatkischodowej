@@ -1,6 +1,7 @@
 package braincode.com.smartsearch;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.List;
 
@@ -29,6 +31,10 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Vi
 
     private List<Item> itemList;
     private Context mContext;
+
+    public interface onDetailsDownloading {
+        public void onDetailsDataLoaded(Bundle bundle);
+    }
 
     public ResultListAdapter(List<Item> items, Context context) {
         this.itemList = items;
@@ -72,6 +78,9 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Vi
                     public void onResponse(Call<ItemDetail> call, Response<ItemDetail> response) {
                         if (response.isSuccessful()) {
                             ItemDetail detail = response.body();
+                            Bundle data = new Bundle();
+                            data.putSerializable("data",(Serializable)detail);
+                            ((onDetailsDownloading)mContext).onDetailsDataLoaded(data);
                                 System.out.println(detail.toString());
                         } else {
                             Log.d("TAG", response.message());
