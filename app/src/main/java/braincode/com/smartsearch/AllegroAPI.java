@@ -3,6 +3,7 @@ package braincode.com.smartsearch;
 import java.util.Map;
 
 import braincode.com.smartsearch.Model.CategoriesList;
+import braincode.com.smartsearch.Model.ItemDetail;
 import braincode.com.smartsearch.Model.ItemsList;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,7 +19,7 @@ import retrofit2.http.QueryMap;
 public interface AllegroAPI {
 
     @Headers({
-            "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJhbGxlZ3JvX2FwaSJdLCJleHAiOjE0OTA0Mzg0NzksImp0aSI6IjllZmI5MzM5LWE5ODAtNDdjOS05N2I2LWI0YzhkZTA3NTBlMiIsImNsaWVudF9pZCI6ImE0MWY1YjJhLThlODctNGI4Yi1iNmZlLTc0Y2M3NjM3MjBkNyJ9.wZlGR-vzyzK5d5SRlx2QebJgvz1S8Fl1NsTPHq4hIABHyuWQ8fUvddFk6qtyfWIMKzyDPYAqxuyZ9XnQmB8SCxnqaEWxD8GB6-Pq0LTD7qAWl-MSdxzOiJ-EPCh-3cJFfM1E-goUWbj6uUnYqjzCe4FvBkdJwCnHqC_aarjx90bngGKqWlvelwP8_W_03Mk-I7uLofShRSOUls_wY3nxVUDgqmQ5ml27fIwgMW_OQNwtsaiOrrWcItrGaZ8Q_LuxChiMrKNPrqTahGZFBrOSsYxjcZWi4xZRdrHWi4-0ucn_ieTkpdAqweDyz7JNLFbqTjpdakHoUeLXHOei3Vjwkg",
+            "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJhbGxlZ3JvX2FwaSJdLCJleHAiOjE0OTA0ODM4NjAsImp0aSI6ImRmNDBlY2E0LWY5NDEtNDA0NS05Y2Q0LTQ5MzQ1M2UwZTkxMSIsImNsaWVudF9pZCI6ImE0MWY1YjJhLThlODctNGI4Yi1iNmZlLTc0Y2M3NjM3MjBkNyJ9.q7t-9GQuuMYKLU9meZl74a7Vr1bC2VLzP19HgEUL5K9_WqkxLqui1kXlhIo9sXhcxW1YZoDR2Z4od_3uqpx22USdfyXQRp0APBuSSnITkixfD0D9dEh0WGa1HMS1eajWC2_QeLyUsG5jUkCT37zQur3CCZswDR4Ur5jFuF9bFGttCMoP06BwKs-JiCxY9HA5hrI9gNU9XSTZNQy7NVIXBZbDbZkXfGr7tFVQgd6_Atkec6BXQA_kvmeK51a2Hw6TL6T9fyAJrLcGH73IR9w8xB5u1vQbqJ7KAYQg6VWfcsdCc7Svg5eoz1ORW66j6bF3AaCAE7M8IOXL6e-jXJEznA",
             "User-Agent: hackaton2017 (Client-Id 656cbe47-b17d-46c2-bae1-3222c8777d5b) Platform",
             "Accept: application/vnd.allegro.public.v1+json"
     })
@@ -31,11 +32,19 @@ public interface AllegroAPI {
 
 
     @Headers({
-            "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJhbGxlZ3JvX2FwaSJdLCJleHAiOjE0OTA0Mzg0NzksImp0aSI6IjllZmI5MzM5LWE5ODAtNDdjOS05N2I2LWI0YzhkZTA3NTBlMiIsImNsaWVudF9pZCI6ImE0MWY1YjJhLThlODctNGI4Yi1iNmZlLTc0Y2M3NjM3MjBkNyJ9.wZlGR-vzyzK5d5SRlx2QebJgvz1S8Fl1NsTPHq4hIABHyuWQ8fUvddFk6qtyfWIMKzyDPYAqxuyZ9XnQmB8SCxnqaEWxD8GB6-Pq0LTD7qAWl-MSdxzOiJ-EPCh-3cJFfM1E-goUWbj6uUnYqjzCe4FvBkdJwCnHqC_aarjx90bngGKqWlvelwP8_W_03Mk-I7uLofShRSOUls_wY3nxVUDgqmQ5ml27fIwgMW_OQNwtsaiOrrWcItrGaZ8Q_LuxChiMrKNPrqTahGZFBrOSsYxjcZWi4xZRdrHWi4-0ucn_ieTkpdAqweDyz7JNLFbqTjpdakHoUeLXHOei3Vjwkg",
+            "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJhbGxlZ3JvX2FwaSJdLCJleHAiOjE0OTA0ODM4NjAsImp0aSI6ImRmNDBlY2E0LWY5NDEtNDA0NS05Y2Q0LTQ5MzQ1M2UwZTkxMSIsImNsaWVudF9pZCI6ImE0MWY1YjJhLThlODctNGI4Yi1iNmZlLTc0Y2M3NjM3MjBkNyJ9.q7t-9GQuuMYKLU9meZl74a7Vr1bC2VLzP19HgEUL5K9_WqkxLqui1kXlhIo9sXhcxW1YZoDR2Z4od_3uqpx22USdfyXQRp0APBuSSnITkixfD0D9dEh0WGa1HMS1eajWC2_QeLyUsG5jUkCT37zQur3CCZswDR4Ur5jFuF9bFGttCMoP06BwKs-JiCxY9HA5hrI9gNU9XSTZNQy7NVIXBZbDbZkXfGr7tFVQgd6_Atkec6BXQA_kvmeK51a2Hw6TL6T9fyAJrLcGH73IR9w8xB5u1vQbqJ7KAYQg6VWfcsdCc7Svg5eoz1ORW66j6bF3AaCAE7M8IOXL6e-jXJEznA",
             "User-Agent: hackaton2017 (Client-Id 656cbe47-b17d-46c2-bae1-3222c8777d5b) Platform",
             "Accept: application/vnd.allegro.public.v1+json"
     })
     @GET("offers")
     Call<ItemsList> getItems(@QueryMap Map<String, String> options);
+
+    @Headers({
+            "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJhbGxlZ3JvX2FwaSJdLCJleHAiOjE0OTA0ODM4NjAsImp0aSI6ImRmNDBlY2E0LWY5NDEtNDA0NS05Y2Q0LTQ5MzQ1M2UwZTkxMSIsImNsaWVudF9pZCI6ImE0MWY1YjJhLThlODctNGI4Yi1iNmZlLTc0Y2M3NjM3MjBkNyJ9.q7t-9GQuuMYKLU9meZl74a7Vr1bC2VLzP19HgEUL5K9_WqkxLqui1kXlhIo9sXhcxW1YZoDR2Z4od_3uqpx22USdfyXQRp0APBuSSnITkixfD0D9dEh0WGa1HMS1eajWC2_QeLyUsG5jUkCT37zQur3CCZswDR4Ur5jFuF9bFGttCMoP06BwKs-JiCxY9HA5hrI9gNU9XSTZNQy7NVIXBZbDbZkXfGr7tFVQgd6_Atkec6BXQA_kvmeK51a2Hw6TL6T9fyAJrLcGH73IR9w8xB5u1vQbqJ7KAYQg6VWfcsdCc7Svg5eoz1ORW66j6bF3AaCAE7M8IOXL6e-jXJEznA",
+            "User-Agent: hackaton2017 (Client-Id 656cbe47-b17d-46c2-bae1-3222c8777d5b) Platform",
+            "Accept: application/vnd.allegro.public.v1+json"
+    })
+    @GET("v1/allegro/offers/{id}")
+    Call<ItemDetail> getItemsDetails(@Path("id") long id);
 
 }

@@ -4,14 +4,15 @@
     android:layout_height="match_parent"
     tools:context="braincode.com.smartsearch.SearchFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_layout">
+    android:id="@+id/fragment_layout"
+    android:fitsSystemWindows="true">
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/type_your_search"
-        android:text="buty nike stan nowy"/>
+        android:text=""/>
 
     <Button
         android:id="@+id/search_button"
@@ -20,14 +21,17 @@
         android:text="@string/search"
         android:layout_gravity="bottom"/>
 
+
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_margin="48dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="48dp"
+        android:layout_marginBottom="78dp"
         android:clickable="true"
         android:src="@android:drawable/ic_btn_speak_now"
-        app:fabSize="no rmal" />
+        app:fabSize="normal" />
 
 </FrameLayout>

@@ -1,25 +1,19 @@
 package braincode.com.smartsearch;
 
-import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-/**
- * Created by kkoza on 25.03.2017.
- */
-
 public class RequestParser {
 
-    String[] keywords = {"stan","miejscowosc","cena" ,"rodzaj"};
+    private static final String[] keywords = {"stan","miejscowość","cena" ,"rodzaj"};
 
-    public Query query;
+    public static Query query;
 
     public RequestParser(){
     }
 
-    public Query parseQuery(String request) {
+    public static Query parseQuery(String request) {
         query = new Query();
         Scanner scanner = new Scanner(request);
         String phrase = "";
@@ -28,50 +22,52 @@ public class RequestParser {
 
             String next = scanner.next();
 
-            if (next == keywords[0] ) {
+            if (next.equals(keywords[0]) ) {
 
                 next = scanner.next();
-                if(next == "nowy") {
+                if(next.equals("nowy")) {
                     query.params.put("buyNew", "1");
                 } else {
-                    query.params.put("buyUsed","0");
+                    query.params.put("buyUsed","1");
                 }
 
-            } else
+            } else if (next.equals(keywords[1])) {
+                next = scanner.next();
+                query.params.put("city",next);
+            } else if(next.equals(keywords[2] )) {
 
-                if (next == keywords[1]) {
-                    next = scanner.next();
-                    query.params.put("city",next);
-                } else
+                next = scanner.next();
+                if(next .equals("od")) {
+                    query.params.put("price_from", scanner.next());
+                } else {
+                    query.params.put("price_to", scanner.next());
+                }
 
-                    if(next == keywords[3]) {
+            } else if ( next.equals(keywords[3] )) {
 
-                        next = scanner.next();
-                        if( next == "od") {
-                            query.params.put("price_from", scanner.next());
-                        } else {
-                            query.params.put("price_to", scanner.next());
-                        }
+                next = scanner.next();
 
-                    } else
-                        if ( next == keywords[4]) {
+                if(next.equals("licytacje") || next.equals("licytacja") ) {
+                    query.params.put("offerTypeAuction", "1");
+                } else {
+                    scanner.next();
+                    query.params.put("offerTypeBuyNow", "1");
+                }
 
-                            next = scanner.next();
-
-                            if(next == "licytacje") {
-                                query.params.put("offerTypeAuction", "0");
-                            } else {
-                                query.params.put("offerTypeBuyNow", "1");
-                            }
-
-                        } else {
-                            phrase += next;
-                        }
+            } else {
+                phrase += next + " ";
+            }
         }
+        query.phrase = phrase;
         return query;
     }
 
-    public class Query {
+    @Override
+    public String toString() {
+        return query.toString();
+    }
+
+    public static class Query {
 
         public Query() {
             params = new HashMap<>();
@@ -79,5 +75,13 @@ public class RequestParser {
 
         String phrase;
         Map<String, String> params;
+
+        @Override
+        public String toString() {
+            return "Query{" +
+                    "phrase='" + phrase + '\'' +
+                    ", params=" + params +
+                    '}';
+        }
     }
 }

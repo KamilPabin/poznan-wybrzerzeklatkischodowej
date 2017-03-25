@@ -18,10 +18,6 @@ public class Item implements Serializable {
     private Prices prices;
     private List<Image> images;
 
-    public Item(long id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
         return "Item{" +
