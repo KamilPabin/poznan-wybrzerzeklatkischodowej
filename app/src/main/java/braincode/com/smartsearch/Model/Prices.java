@@ -8,6 +8,14 @@ public class Prices {
     private BuyNow buyNow;
     private WithDelivery withDelivery;
 
+    public BuyNow getBuyNow() {
+        return buyNow;
+    }
+
+    public WithDelivery getWithDelivery() {
+        return withDelivery;
+    }
+
     public class BuyNow {
         private double amount;
 

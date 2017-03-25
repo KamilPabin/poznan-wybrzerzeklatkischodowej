@@ -8,9 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.List;
 
 import braincode.com.smartsearch.Model.Item;
+import braincode.com.smartsearch.Model.Prices;
 
 
 /**
@@ -55,18 +59,19 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Vi
     public void onBindViewHolder(ResultListAdapter.ViewHolder holder, int position) {
 
         Item item = itemList.get(position);
+        Prices.BuyNow buyNow = item.getPrices().getBuyNow();
 
-//        holder.Title.setText( item.getTitle());
-//        holder.Description.setText( item.getDescription());
-//        holder.Price.setText( item.getPrice());
-//
-//        Glide
-//                .with(mContext)
-//                .load(item.getSmallImageURL())
-//                .dontTransform()
-//                .skipMemoryCache(false)
-//                .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                .into(holder.Thumbnail);
+        holder.Title.setText(item.getName());
+        holder.Description.setText("");
+        holder.Price.setText(String.valueOf(buyNow.getAmount()));
+
+        Glide
+                .with(mContext)
+                .load(item.getImages().get(0).getUrl())
+                .dontTransform()
+                .skipMemoryCache(false)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(holder.Thumbnail);
 
     }
 

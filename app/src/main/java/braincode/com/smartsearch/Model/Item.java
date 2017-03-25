@@ -37,4 +37,44 @@ public class Item implements Serializable {
                 ", image=" + images +
                 '}';
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public int getBidsCount() {
+        return bidsCount;
+    }
+
+    public boolean isAuction() {
+        return auction;
+    }
+
+    public boolean isAdvert() {
+        return advert;
+    }
+
+    public boolean isBuyNew() {
+        return buyNew;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isCartAbailable() {
+        return cartAbailable;
+    }
+
+    public Prices getPrices() {
+        return prices;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
 }
