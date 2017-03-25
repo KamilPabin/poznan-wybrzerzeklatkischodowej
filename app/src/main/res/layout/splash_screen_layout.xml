@@ -3,9 +3,30 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000">
+    <TextView
+        android:id="@+id/T1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/splash_icon"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        android:text="SmartSearch"
+        android:layout_centerHorizontal="true"/>
     <ImageView
+        android:id="@+id/splash_icon"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_lock_idle_lock"/>
+        android:src="@android:drawable/ic_lock_idle_lock"
+        />
+    <TextView
+        android:id="@+id/T2"
+        android:layout_below="@id/splash_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mówisz i masz"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        />
 </RelativeLayout>
