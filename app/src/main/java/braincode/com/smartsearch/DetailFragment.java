@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import braincode.com.smartsearch.Model.Attribute;
@@ -63,6 +64,23 @@ public class DetailFragment extends Fragment {
         detailDescriptionTv.setText(setAttributes(data.getAttributes()));
 
         localizationTv.setText("Miejscowość: " + data.getLocation().getCity());
+
+        NumberFormat format = NumberFormat.getCurrencyInstance();
+        format.setMaximumFractionDigits(2);
+
+        if (data.isAuction()) {
+            StringBuilder stringBuilder = new StringBuilder()
+                    .append("Licytacja: ")
+                    .append(format.format(data.getPrices().getBid()));
+            priceTv.setText(stringBuilder.toString());
+        }
+
+        if (data.isBuyNow()) {
+            StringBuilder stringBuilder = new StringBuilder()
+                    .append("Kup Teraz: ")
+                    .append(format.format(data.getPrices().getBuyNow()));
+            priceTv.setText(stringBuilder.toString());
+        }
 
         return v;
     }

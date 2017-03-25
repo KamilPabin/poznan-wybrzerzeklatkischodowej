@@ -5,6 +5,27 @@ package braincode.com.smartsearch;
  */
 
 public class Prices {
-    private int buyNow;
-    private int auction;
+    private double buyNow;
+    private double bid;
+
+    public Prices(double buyNow, double bid) {
+        this.buyNow = buyNow;
+        this.bid = bid;
+    }
+
+    @Override
+    public String toString() {
+        return "Prices{" +
+                "buyNow=" + buyNow +
+                ", bid=" + bid +
+                '}';
+    }
+
+    public double getBuyNow() {
+        return buyNow;
+    }
+
+    public double getBid() {
+        return bid;
+    }
 }
