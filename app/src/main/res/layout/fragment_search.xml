@@ -10,17 +10,8 @@
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/type_your_search"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="48dp"
-        app:fabSize="normal"
-        android:clickable="true"
-        android:src="@android:drawable/ic_btn_speak_now"
-        android:layout_gravity="bottom|end"/>
+        android:hint="@string/type_your_search"
+        android:text="buty nike stan nowy"/>
 
     <Button
         android:id="@+id/search_button"
@@ -28,5 +19,15 @@
         android:layout_height="wrap_content"
         android:text="@string/search"
         android:layout_gravity="bottom"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="48dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_btn_speak_now"
+        app:fabSize="normal" />
 
 </FrameLayout>

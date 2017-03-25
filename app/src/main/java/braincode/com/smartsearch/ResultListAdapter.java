@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
 import java.util.List;
+
+import braincode.com.smartsearch.Model.Item;
 
 
 /**
@@ -57,17 +56,17 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Vi
 
         Item item = itemList.get(position);
 
-        holder.Title.setText( item.getTitle());
-        holder.Description.setText( item.getDescription());
-        holder.Price.setText( item.getPrice());
-
-        Glide
-                .with(mContext)
-                .load(item.getSmallImageURL())
-                .dontTransform()
-                .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .into(holder.Thumbnail);
+//        holder.Title.setText( item.getTitle());
+//        holder.Description.setText( item.getDescription());
+//        holder.Price.setText( item.getPrice());
+//
+//        Glide
+//                .with(mContext)
+//                .load(item.getSmallImageURL())
+//                .dontTransform()
+//                .skipMemoryCache(false)
+//                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                .into(holder.Thumbnail);
 
     }
 

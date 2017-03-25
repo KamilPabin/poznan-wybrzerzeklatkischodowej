@@ -3,11 +3,15 @@ package braincode.com.smartsearch;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Created by kkoza on 25.03.2017.
+ */
+
 public class RequestParser {
 
     public Query query;
 
-    private RequestParser(){
+    public RequestParser(){
     }
 
     public Query parseQuery(String request) {
@@ -29,7 +33,7 @@ public class RequestParser {
         return query;
     }
 
-    private String getData(String request,String paramName, String paramKey, String paramValue) {
+    private String getData(String request, String paramName, String paramKey, String paramValue) {
         StringBuilder builder = new StringBuilder(request);
 
         if (request.contains(paramName)) {
