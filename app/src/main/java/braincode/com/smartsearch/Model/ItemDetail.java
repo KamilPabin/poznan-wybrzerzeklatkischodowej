@@ -27,6 +27,9 @@ public class ItemDetail implements Serializable {
     @SerializedName("prices")
     braincode.com.smartsearch.Prices prices;
 
+    @SerializedName("quantities")
+    private Quantities quantities;
+
     public ItemDetail(List<Gallery> gallery, List<Attribute> attributes, Location location, Gallery mainImage, String name, boolean buyNow, boolean auction, braincode.com.smartsearch.Prices prices) {
         this.gallery = gallery;
         this.attributes = attributes;
@@ -49,7 +52,13 @@ public class ItemDetail implements Serializable {
                 ", buyNow=" + buyNow +
                 ", auction=" + auction +
                 ", prices=" + prices +
+                ", quantities=" + quantities +
                 '}';
+    }
+
+
+    public Quantities getQuantities() {
+        return quantities;
     }
 
     public List<Gallery> getGallery() {

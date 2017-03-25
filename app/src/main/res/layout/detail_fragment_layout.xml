@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical">
 
     <ImageView
         android:background="#000000"
@@ -11,6 +12,11 @@
         android:foregroundGravity="center_horizontal"
         android:paddingTop="1dp"
         android:layout_alignParentTop="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <TextView
         android:id="@+id/detail_title"
@@ -22,6 +28,25 @@
         android:layout_below="@id/main_image"
         android:text="blalblablalb"/>
 
+        <TextView
+            android:id="@+id/detail_localisation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="miasto: "/>
+        <TextView
+            android:id="@+id/detail_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cena: "/>
+
+        <TextView
+            android:id="@+id/detail_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ilość: "/>
+
+    </LinearLayout>
+
     <View
         android:id="@+id/divider"
         android:background="#000000"
@@ -29,48 +54,10 @@
         android:layout_height="1dp"
         android:layout_below="@id/detail_title"/>
 
-    <LinearLayout
-        android:layout_marginTop="8dp"
-        android:layout_below="@id/divider"
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3">
+        android:layout_height="match_parent"
+        android:id="@+id/list_view">
+    </ListView>
 
-        <TextView
-            android:id="@+id/detail_atributtes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="#000000"
-            android:textSize="10sp"
-            android:text="blalala: blabla +\n bla : bla b;a, 135, "/>
-
-        <LinearLayout
-            android:layout_weight="2"
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/detail_localisation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="miasto: "/>
-            <TextView
-                android:id="@+id/detail_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cena: "/>
-
-            <TextView
-                android:id="@+id/detail_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ilość: "/>
-
-        </LinearLayout>
-    </LinearLayout>
-
-
-</RelativeLayout>
+</LinearLayout>
