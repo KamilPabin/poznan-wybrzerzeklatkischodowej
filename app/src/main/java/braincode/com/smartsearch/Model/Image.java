@@ -17,4 +17,8 @@ public class Image {
                 "url='" + url + '\'' +
                 '}';
     }
+
+    public String getUrl() {
+        return url;
+    }
 }
