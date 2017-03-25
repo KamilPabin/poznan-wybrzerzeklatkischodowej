@@ -187,7 +187,7 @@ public class SearchFragment extends Fragment {
         Log.d("phrase", requestParser.query.phrase);
         options.put("phrase", requestParser.query.phrase);
         options.put("country.code", "PL");
-
+        hideSoftKeyboard();
         getItem.getOffers(options);
     }
 }
