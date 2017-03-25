@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import braincode.com.smartsearch.Dialog.TextDialog;
 import braincode.com.smartsearch.Model.CategoriesList;
 import braincode.com.smartsearch.Model.Category;
 import braincode.com.smartsearch.Model.Item;
@@ -138,9 +137,7 @@ public class SearchFragment extends Fragment {
             results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
             Log.d("reuslts", results.toString());
-            TextDialog textDialog = TextDialog.newInstance(results);
-            textDialog.setTargetFragment(this, 0);
-            textDialog.show(getFragmentManager(), "TAG");
+            startRequest(results.get(0));
         }
     }
 
@@ -166,13 +163,13 @@ public class SearchFragment extends Fragment {
         if (inputEt.getText().toString().equals("")) {
             return;
         }
-        startRequest();
+        startRequest(inputEt.getText().toString());
     }
 
-    public void startRequest() {
-
+    public void startRequest(String s) {
+            inputEt.setText(s);
             RequestParser requestParser = new RequestParser();
-            requestParser.parseQuery(inputEt.getText().toString());
+            requestParser.parseQuery(s);
 
 //        StringBuilder stringBuilder = new StringBuilder()
 //                .append("(\"")

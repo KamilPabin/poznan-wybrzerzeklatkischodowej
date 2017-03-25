@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/search"
-        android:layout_gravity="bottom"/>
-
-
+        android:layout_gravity="bottom"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
