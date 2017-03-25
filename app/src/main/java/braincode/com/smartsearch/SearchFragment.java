@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +34,10 @@ import static android.app.Activity.RESULT_OK;
 
 public class SearchFragment extends Fragment {
 
+    public interface onDataDownloaded {
+        void dataDownloaded(Bundle bundle);
+    }
+
     private static final int SPEECH_REQUEST_CODE = 0;
 
     @BindView(R.id.fab)
@@ -47,6 +52,14 @@ public class SearchFragment extends Fragment {
     private Controller controller;
 
     private GetItem getItem;
+
+    private MainActivity mContext;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = (MainActivity)context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,12 +88,16 @@ public class SearchFragment extends Fragment {
         getItem = new GetItem() {
             @Override
             public void onResponse(Call<ItemsList> call, Response<ItemsList> response) {
+
                 if (response.isSuccessful()) {
+
                     List<Item> list = response.body().list;
-                    for (Item item : list) {
-                        Log.d("item", item.toString());
-                    }
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("Items",(Serializable)list);
+                    mContext.dataDownloaded(bundle);
                 } else {
+
                     Log.d("TAG", response.message());
                     Log.d("TAG", response.toString());
                 }
@@ -98,6 +115,7 @@ public class SearchFragment extends Fragment {
     // Create an intent that can getCategories the Speech Recognizer activity
     @OnClick(R.id.fab)
     public void displaySpeechRecognizer() {
+
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);

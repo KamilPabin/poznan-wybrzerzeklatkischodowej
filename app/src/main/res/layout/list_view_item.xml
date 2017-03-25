@@ -23,7 +23,7 @@
         android:layout_toRightOf="@id/Thumbnail"
         android:layout_toEndOf="@id/Thumbnail"
         android:layout_alignParentTop="true"
-        android:text="@string/ItemTitle"/>
+        android:text="@string/item_title"/>
 
     <TextView
         android:id="@+id/Price"
