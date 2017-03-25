@@ -10,7 +10,8 @@
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/type_your_search"/>
+        android:hint="@string/type_your_search"
+        android:text="buty nike stan nowy"/>
 
     <Button
         android:id="@+id/search_button"

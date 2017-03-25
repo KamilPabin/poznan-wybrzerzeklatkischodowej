@@ -1,19 +1,22 @@
 package braincode.com.smartsearch.Model;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by Little on 2017-03-24.
  */
-public class Item {
+public class Item implements Serializable {
     private long id;
     private String url;
     private int bidsCount;
     private boolean auction;
     private boolean advert;
     private boolean buyNew;
-    private String Name;
+    private String name;
     private boolean cartAbailable;
     private Prices prices;
-    private Image image;
+    private List<Image> images;
 
     public Item(long id) {
         this.id = id;
@@ -28,10 +31,10 @@ public class Item {
                 ", auction=" + auction +
                 ", advert=" + advert +
                 ", buyNew=" + buyNew +
-                ", Name='" + Name + '\'' +
+                ", Name='" + name + '\'' +
                 ", cartAbailable=" + cartAbailable +
                 ", prices=" + prices +
-                ", image=" + image +
+                ", image=" + images +
                 '}';
     }
 }

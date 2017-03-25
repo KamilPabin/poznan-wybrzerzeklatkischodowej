@@ -15,7 +15,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -143,10 +142,12 @@ public class SearchFragment extends Fragment {
     public void find() {
         Log.d("Tag", "klik");
 
-        Map<String, String> options = new HashMap<>(10);
-        options.put("buyNew", "1");
-        options.put("city", "poznan");
-        options.put("phrase", "wsk tulejka 125");
+        RequestParser requestParser = new RequestParser();
+        requestParser.parseQuery(inputEt.getText().toString());
+
+
+        Map<String, String> options = requestParser.query.params;
+        options.put("phrase", requestParser.query.phrase);
         options.put("country.code", "PL");
 
         getItem.getOffers(options);

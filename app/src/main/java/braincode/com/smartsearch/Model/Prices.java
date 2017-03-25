@@ -6,6 +6,7 @@ package braincode.com.smartsearch.Model;
 
 public class Prices {
     private BuyNow buyNow;
+    private WithDelivery withDelivery;
 
     public class BuyNow {
         private double amount;
