@@ -18,6 +18,13 @@ public class Prices {
         public double getAmount() {
             return amount;
         }
+
+        @Override
+        public String toString() {
+            return "BuyNow{" +
+                    "amount=" + amount +
+                    '}';
+        }
     }
 
     public class WithDelivery {
@@ -30,5 +37,20 @@ public class Prices {
         public double getAmount() {
             return amount;
         }
+
+        @Override
+        public String toString() {
+            return "WithDelivery{" +
+                    "amount=" + amount +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Prices{" +
+                "buyNow=" + buyNow +
+                ", withDelivery=" + withDelivery +
+                '}';
     }
 }

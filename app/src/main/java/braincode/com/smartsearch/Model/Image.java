@@ -6,4 +6,15 @@ package braincode.com.smartsearch.Model;
 
 public class Image {
     private String url;
+
+    public Image(String url) {
+        this.url = url;
+    }
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "url='" + url + '\'' +
+                '}';
+    }
 }
