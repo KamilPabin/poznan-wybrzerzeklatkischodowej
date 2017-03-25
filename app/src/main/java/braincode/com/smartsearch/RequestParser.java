@@ -49,9 +49,11 @@ public class RequestParser {
 
                 if(next.equals("licytacje") || next.equals("licytacja") ) {
                     query.params.put("offerTypeAuction", "1");
+                    query.params.put("offerTypeBuyNow", "0");
                 } else {
                     scanner.next();
                     query.params.put("offerTypeBuyNow", "1");
+                    query.params.put("offerTypeAction", "0");
                 }
 
             } else {
