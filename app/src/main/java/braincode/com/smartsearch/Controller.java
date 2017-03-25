@@ -14,16 +14,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by kkoza on 25.03.2017.
  */
 
-public abstract class Controller implements Callback<CategoriesList> {
-    private String baseURL = "https://api.natelefon.pl";
+public abstract class Controller implements Callback<CategoriesList>{
+    private String categoriesURL = "https://api.natelefon.pl";
 
-    public void start() {
+    private String offersDetailsURL = "https://allegroapi.io";
+
+    public void getCategories() {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseURL)
+                .baseUrl(categoriesURL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -33,6 +35,22 @@ public abstract class Controller implements Callback<CategoriesList> {
         call.enqueue(this);
 
     }
+
+//    public void getOffers(String phrase, Map<String, String> options) {
+//        Gson gson = new GsonBuilder()
+//                .setLenient()
+//                .create();
+//
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(offersDetailsURL)
+//                .addConverterFactory(GsonConverterFactory.create(gson))
+//                .build();
+//
+//        AllegroAPI allegroAPI = retrofit.create(AllegroAPI.class);
+//
+//        Call<Item> items = allegroAPI.getItems(phrase, options);
+//        items.enqueue(this);
+//    }
 
     @Override
     public abstract void onResponse(Call<CategoriesList> call, Response<CategoriesList> response);

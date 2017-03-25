@@ -15,11 +15,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import braincode.com.smartsearch.Dialog.TextDialog;
 import braincode.com.smartsearch.Model.CategoriesList;
 import braincode.com.smartsearch.Model.Category;
+import braincode.com.smartsearch.Model.Item;
+import braincode.com.smartsearch.Model.ItemsList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -42,6 +46,8 @@ public class SearchFragment extends Fragment {
     Button searchBtn;
 
     private Controller controller;
+
+    private GetItem getItem;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,10 +73,30 @@ public class SearchFragment extends Fragment {
             }
         };
 
+        getItem = new GetItem() {
+            @Override
+            public void onResponse(Call<ItemsList> call, Response<ItemsList> response) {
+                if (response.isSuccessful()) {
+                    List<Item> list = response.body().list;
+                    for (Item item : list) {
+                        Log.d("item", item.toString());
+                    }
+                } else {
+                    Log.d("TAG", response.message());
+                    Log.d("TAG", response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ItemsList> call, Throwable t) {
+                t.printStackTrace();
+            }
+        };
+
         return view;
     }
 
-    // Create an intent that can start the Speech Recognizer activity
+    // Create an intent that can getCategories the Speech Recognizer activity
     @OnClick(R.id.fab)
     public void displaySpeechRecognizer() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -116,6 +142,13 @@ public class SearchFragment extends Fragment {
     @OnClick(R.id.search_button)
     public void find() {
         Log.d("Tag", "klik");
-        controller.start();
+
+        Map<String, String> options = new HashMap<>(10);
+        options.put("buyNew", "1");
+        options.put("city", "poznan");
+        options.put("phrase", "wsk tulejka 125");
+        options.put("country.code", "PL");
+
+        getItem.getOffers(options);
     }
 }
