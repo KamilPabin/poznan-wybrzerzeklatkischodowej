@@ -70,6 +70,8 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         ButterKnife.bind(this, view);
 
+        inputEt.setText("");
+
         controller = new Controller() {
             @Override
             public void onResponse(Call<CategoriesList> call, Response<CategoriesList> response) {
@@ -129,7 +131,7 @@ public class SearchFragment extends Fragment {
         if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
             results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
-
+            Log.d("reuslts", results.toString());
             TextDialog textDialog = TextDialog.newInstance(results);
             textDialog.setTargetFragment(this, 0);
             textDialog.show(getFragmentManager(), "TAG");
@@ -141,6 +143,7 @@ public class SearchFragment extends Fragment {
             inputEt.setText("");
         }
         inputEt.setText(bestMatch.get(0));
+        find();
     }
 
     @OnClick(R.id.fragment_layout)
@@ -154,34 +157,35 @@ public class SearchFragment extends Fragment {
 
     @OnClick(R.id.search_button)
     public void find() {
+        if (inputEt.getText().toString().equals("")) {
+            return;
+        }
         startRequest();
     }
 
     public void startRequest() {
-        RequestParser[] requestParser = new RequestParser[3];
-        ArrayList<String> phrases = new ArrayList<>(3);
-        for (int i = 0; i < 3; i++) {
-            requestParser[i] = new RequestParser();
-            requestParser[i].parseQuery(results.get(i));
-            phrases.add(requestParser[i].query.phrase);
-        }
 
-        StringBuilder stringBuilder = new StringBuilder()
-                .append("(\"")
-                .append(phrases.get(0))
-                .append("\"")
-                .append(" ")
-                .append("\"")
-                .append(phrases.get(1))
-                .append("\"")
-                .append(" ")
-                .append("\"")
-                .append(phrases.get(2))
-                .append("\")");
-        Log.d("TAG", stringBuilder.toString());
+            RequestParser requestParser = new RequestParser();
+            requestParser.parseQuery(inputEt.getText().toString());
 
-        Map<String, String> options = requestParser[0].query.params;
-        options.put("phrase", stringBuilder.toString());
+//        StringBuilder stringBuilder = new StringBuilder()
+//                .append("(\"")
+//                .append(phrases.get(0))
+//                .append("\"")
+//                .append(" ")
+//                .append("\"")
+//                .append(phrases.get(1))
+//                .append("\"")
+//                .append(" ")
+//                .append("\"")
+//                .append(phrases.get(2))
+//                .append("\")");
+//        Log.d("TAG", stringBuilder.toString());
+
+        Map<String, String> options = requestParser.query.params;
+        Log.d("options", options.toString());
+        Log.d("phrase", requestParser.query.phrase);
+        options.put("phrase", requestParser.query.phrase);
         options.put("country.code", "PL");
 
         getItem.getOffers(options);

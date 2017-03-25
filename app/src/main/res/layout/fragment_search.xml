@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     tools:context="braincode.com.smartsearch.SearchFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_layout">
+    android:id="@+id/fragment_layout"
+    android:fitsSystemWindows="true">
 
     <EditText
         android:id="@+id/editText"
@@ -28,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginRight="48dp"
-        android:layout_marginBottom="96dp"
+        android:layout_marginBottom="78dp"
         android:clickable="true"
         android:src="@android:drawable/ic_btn_speak_now"
         app:fabSize="normal" />

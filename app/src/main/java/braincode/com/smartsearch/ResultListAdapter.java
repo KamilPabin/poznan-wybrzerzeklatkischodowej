@@ -2,6 +2,7 @@ package braincode.com.smartsearch;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import braincode.com.smartsearch.Model.Item;
+import braincode.com.smartsearch.Model.ItemDetail;
 import braincode.com.smartsearch.Model.Prices;
+import retrofit2.Call;
+import retrofit2.Response;
 
 
 /**
@@ -56,17 +61,51 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Vi
 
     @Override
     public void onBindViewHolder(ResultListAdapter.ViewHolder holder, int position) {
+        final Item item = itemList.get(position);
+        Log.d("tag", "position " + position);
 
-        Item item = itemList.get(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GetItemsDetails getItemsDetails = new GetItemsDetails() {
+                    @Override
+                    public void onResponse(Call<ItemDetail> call, Response<ItemDetail> response) {
+                        if (response.isSuccessful()) {
+                            ItemDetail detail = response.body();
+                                System.out.println(detail.toString());
+                        } else {
+                            Log.d("TAG", response.message());
+                            Log.d("TAG", response.errorBody().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ItemDetail> call, Throwable t) {
+                        t.printStackTrace();
+
+                    }
+                };
+                Log.d("ID", item.getId() + "" );
+                getItemsDetails.getOffers(item.getId());
+            }
+        });
+
+
+
         Prices.BuyNow buyNow = item.getPrices().getBuyNow();
         Prices.WithDelivery withDelivery = item.getPrices().getWithDelivery();
 
         holder.Title.setText(item.getName());
         holder.Description.setText("");
+
+        NumberFormat numberFormat = NumberFormat.getNumberInstance();
+        numberFormat.setMaximumFractionDigits(2);
         if (buyNow != null) {
-            holder.Price.setText(String.valueOf(buyNow.getAmount()));
+            holder.Price.setText(String.valueOf(numberFormat.format(buyNow.getAmount())) + " " + mContext
+            .getResources().getString(R.string.zl));
         } else if (withDelivery != null) {
-            holder.Price.setText(String.valueOf(withDelivery.getAmount()));
+            holder.Price.setText(String.valueOf(numberFormat.format(withDelivery.getAmount()))
+            + " " + mContext.getResources().getString(R.string.zl));
         }
         Glide
                 .with(mContext)
