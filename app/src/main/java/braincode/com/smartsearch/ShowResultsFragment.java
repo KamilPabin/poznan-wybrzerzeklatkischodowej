@@ -8,9 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created by Little on 2017-03-24.
- */
 
 public class ShowResultsFragment extends Fragment {
 

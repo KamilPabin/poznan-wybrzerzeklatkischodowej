@@ -3,10 +3,10 @@
 
     <string name="type_your_search">Wpisz</string>
 
-    <string name="ItemTitle">Title</string>
+    <string name="item_title">Title</string>
     <string name="item_price">Item Price</string>
     <string name="item_description">Description</string>
-  <string name="item_thumb_description">Item description</string>
+    <string name="item_thumb_description">Item description</string>
     <string name="did_you_say">Czy chodziło Ci o:</string>
     <string name="speech_to_text">Odczytywanie mowy</string>
     <string name="yes">tak</string>
