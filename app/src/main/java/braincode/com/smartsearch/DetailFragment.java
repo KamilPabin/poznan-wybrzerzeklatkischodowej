@@ -28,7 +28,6 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.detail_fragment_layout,container);
         ItemDetail data = (ItemDetail) getArguments().get("data");
-        ((TextView)v.findViewById(R.id.detail_title)).setText(data.getName());
         return v;
     }
 }

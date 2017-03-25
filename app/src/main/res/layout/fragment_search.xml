@@ -32,6 +32,8 @@
         android:layout_marginBottom="78dp"
         android:clickable="true"
         android:src="@android:drawable/ic_btn_speak_now"
+        android:scaleX ="2"
+        android:scaleY ="2"
         app:fabSize="normal" />
 
 </FrameLayout>
