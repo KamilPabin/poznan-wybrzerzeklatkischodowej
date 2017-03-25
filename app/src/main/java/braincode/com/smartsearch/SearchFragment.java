@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import braincode.com.smartsearch.Dialog.ListDialog;
 import braincode.com.smartsearch.Dialog.TextDialog;
 import braincode.com.smartsearch.Model.CategoriesList;
 import braincode.com.smartsearch.Model.Category;
@@ -57,7 +56,7 @@ public class SearchFragment extends Fragment {
 
     private MainActivity mContext;
 
-    private List<String> results;
+    private ArrayList<String> results;
 
     @Override
     public void onAttach(Context context) {
@@ -101,7 +100,6 @@ public class SearchFragment extends Fragment {
                     bundle.putSerializable("Items",(Serializable)list);
                     mContext.dataDownloaded(bundle);
                 } else {
-
                     Log.d("TAG", response.message());
                     Log.d("TAG", response.toString());
                 }
@@ -112,21 +110,17 @@ public class SearchFragment extends Fragment {
                 t.printStackTrace();
             }
         };
-
         return view;
     }
 
-    // Create an intent that can getCategories the Speech Recognizer activity
     @OnClick(R.id.fab)
     public void displaySpeechRecognizer() {
-
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         startActivityForResult(intent, SPEECH_REQUEST_CODE);
     }
 
-    //Callback from intent. Get text from intent content
     @Override
     public void onActivityResult(int requestCode, int resultCode,
                                  Intent data) {
@@ -136,19 +130,17 @@ public class SearchFragment extends Fragment {
             results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
 
-            for (String s : results) {
-                Log.d("spokenText", s);
-            }
-
-            //best match index: 0
-            TextDialog textDialog = TextDialog.newInstance(results.get(0));
+            TextDialog textDialog = TextDialog.newInstance(results);
             textDialog.setTargetFragment(this, 0);
             textDialog.show(getFragmentManager(), "TAG");
         }
     }
 
-    public void onTextToSpeechConfirmation(String bestMatch) {
-        inputEt.setText(bestMatch);
+    public void onTextToSpeechConfirmation(ArrayList<String> bestMatch) {
+        if (bestMatch == null) {
+            inputEt.setText("");
+        }
+        inputEt.setText(bestMatch.get(0));
     }
 
     @OnClick(R.id.fragment_layout)
@@ -162,24 +154,36 @@ public class SearchFragment extends Fragment {
 
     @OnClick(R.id.search_button)
     public void find() {
-        Log.d("Tag", "klik");
+        startRequest();
+    }
 
-        RequestParser requestParser = new RequestParser();
-        requestParser.parseQuery(inputEt.getText().toString());
+    public void startRequest() {
+        RequestParser[] requestParser = new RequestParser[3];
+        ArrayList<String> phrases = new ArrayList<>(3);
+        for (int i = 0; i < 3; i++) {
+            requestParser[i] = new RequestParser();
+            requestParser[i].parseQuery(results.get(i));
+            phrases.add(requestParser[i].query.phrase);
+        }
 
+        StringBuilder stringBuilder = new StringBuilder()
+                .append("(\"")
+                .append(phrases.get(0))
+                .append("\"")
+                .append(" ")
+                .append("\"")
+                .append(phrases.get(1))
+                .append("\"")
+                .append(" ")
+                .append("\"")
+                .append(phrases.get(2))
+                .append("\")");
+        Log.d("TAG", stringBuilder.toString());
 
-        Map<String, String> options = requestParser.query.params;
-        options.put("phrase", requestParser.query.phrase);
+        Map<String, String> options = requestParser[0].query.params;
+        options.put("phrase", stringBuilder.toString());
         options.put("country.code", "PL");
 
         getItem.getOffers(options);
     }
-
-    public void buildListFragment() {
-        ListDialog listDialog = ListDialog.newInstance((ArrayList<String>) results);
-        listDialog.setTargetFragment(this, 0);
-        listDialog.show(getFragmentManager(), "TAG");
-
-    }
-
 }

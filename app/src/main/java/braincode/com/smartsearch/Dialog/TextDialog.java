@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 
+import java.util.ArrayList;
+
 import braincode.com.smartsearch.R;
 import braincode.com.smartsearch.SearchFragment;
 
@@ -19,9 +21,9 @@ public class TextDialog extends AppCompatDialogFragment {
 
     private static final String BEST_MATCH_KEY = "best_match";
 
-    public static TextDialog newInstance(String bestMatch) {
+    public static TextDialog newInstance(ArrayList<String> bestMatches) {
         Bundle args = new Bundle();
-        args.putString(BEST_MATCH_KEY, bestMatch);
+        args.putStringArrayList(BEST_MATCH_KEY, bestMatches);
 
         TextDialog fragment = new TextDialog();
         fragment.setArguments(args);
@@ -37,21 +39,19 @@ public class TextDialog extends AppCompatDialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-        final String bestMatch = (String) getArguments().get(BEST_MATCH_KEY);
+        final ArrayList<String> bestMatches = (ArrayList<String>) getArguments().get(BEST_MATCH_KEY);
 
         builder .setTitle(R.string.speech_to_text)
-                .setMessage(r.getString(R.string.did_you_say) + "\n" +
-                bestMatch)
+                .setMessage(r.getString(R.string.did_you_say) + "\n" + bestMatches.get(0))
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ((SearchFragment) getTargetFragment()).onTextToSpeechConfirmation(bestMatch);
+                        ((SearchFragment) getTargetFragment()).onTextToSpeechConfirmation(bestMatches);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        ((SearchFragment) getTargetFragment()).buildListFragment();
                     }
                 });
 
